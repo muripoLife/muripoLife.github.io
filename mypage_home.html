@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<!-- React.js -->
 		<script src="http://fb.me/react-0.13.3.js"></script>
 		<script src="http://fb.me/JSXTransformer-0.13.3.js"></script>
+		<!-- MathJax -->
+		<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]] } });
+		</script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML">
+		</script>
+		<meta http-equiv="X-UA-Compatible" CONTENT="IE=EmulateIE7" />
 	</head>
 	<body>
-		<div id="app"></div><!-- ←ここに埋め込まれる -->
-		<!-- 以下、Reactのプログラム -->
-		<!-- (jsxを使っているのでtext/jsxと書く) -->
-		<script type="text/jsx">
-			var HelloWorld = React.createClass({
-			// <HelloWorld />をレンダリング（表示）
-			render: function() {
-				return (
-					<p>Hello!World!</p>
-				);
-			}
-		}); -->
-		<!-- // id='app'に<HelloWorld />を埋め込む（マウント）
-		var m = React.render(<HelloWorld />, document.getElementById('app'));
-		</script>
+		<scritp>
+			$
+				S(u,v) =
+					\begin{pmatrix}
+					(R + r \cos u) \cos v \\
+					(R + r \cos u) \sin v \\
+					r \sin u
+					\end{pmatrix}
+					, (0 \leq u, v \leq 2 \pi), (0 < r < R)
+			$
+		</scritp>
 		<!-- shader_code -->
 		<script type="x-shader/x-vertex" id="vs">
 			varying vec2 vUv;
@@ -38,8 +42,8 @@
 			float dTorus(vec3 p)
 			{
 				// lenght使わない方法
-				float r = 0.3;
-				float R = 1.0;
+				float r = 0.6;
+				float R = 2.0;
 				// mat3 m_x = mat3(1,0,0,0,cos(time),-sin(time),0,sin(time),cos(time));
 				// p = m_x * p;
 				mat3 m_y = mat3(cos(time),0,-sin(time), 0,1,0, sin(time),0,cos(time));
