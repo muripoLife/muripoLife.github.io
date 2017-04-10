@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>muripo_lifeのぺーじ</title>
+		<script type="text/javascript" src="./three.js"></script>
+		<script type="text/javascript" src="./threeDimTextAsset/helvetiker_regular.typeface.js"></script>
+		<script type="text/javascript" src="./threeDimTextAsset/helvetiker_bold.typeface.js"></script>
+		<script type="text/javascript" src="./threeDimTextAsset/bitstream_vera_sans_mono_roman.typeface.js"></script>
 		<!-- React.js -->
 		<script src="http://fb.me/react-0.13.3.js"></script>
 		<script src="http://fb.me/JSXTransformer-0.13.3.js"></script>
@@ -13,6 +18,7 @@
 		<meta http-equiv="X-UA-Compatible" CONTENT="IE=EmulateIE7" />
 	</head>
 	<body>
+		<!-- MathJax_code -->
 		<scritp>
 			$
 				S(u,v) =
@@ -23,6 +29,16 @@
 					\end{pmatrix}
 					, (0 \leq u, v \leq 2 \pi), (0 < r < R)
 			$
+			$
+				S(u,v) =
+					\begin{pmatrix}
+					(R + r \cos u) \cos v \\
+					(R + r \cos u) \sin v \\
+					r \sin u
+					\end{pmatrix}
+					, (0 \leq u, v \leq 2 \pi), (0 < r < R)
+			$
+			
 		</scritp>
 		<!-- shader_code -->
 		<script type="x-shader/x-vertex" id="vs">
@@ -37,7 +53,6 @@
 			uniform vec2	resolution;
 			uniform float time;
 			uniform sampler2D prevScene;
-
 			// Boxの距離関数
 			float dTorus(vec3 p)
 			{
@@ -54,61 +69,56 @@
 				// TorusからSphereへ変形
 				return sqrt(p.x*p.x+p.y*p.y+p.z*p.z + R*R - 2.0 * R * sqrt(p.x*p.x+p.y*p.y+p.z*p.z*abs(sin(time))) ) - r;
 			}
-
 			// 距離関数を呼び出すハブ関数
 			float distanceHub(vec3 p)
 			{
-				// return min(min(sdHeart(p), sdHeart01(p)), sdSphere(p));
 				return dTorus(p);
 			}
-
-			/*	*/
-
 			// 法線を生成する
 			vec3 genNormal(vec3 p)
 			{
-					float d = 0.001;
-					return normalize(vec3(
-							distanceHub(p + vec3(	d, 0.0, 0.0)) - distanceHub(p + vec3( -d, 0.0, 0.0)),
-							distanceHub(p + vec3(0.0,	 d, 0.0)) - distanceHub(p + vec3(0.0,	-d, 0.0)),
-							distanceHub(p + vec3(0.0, 0.0,	 d)) - distanceHub(p + vec3(0.0, 0.0,	-d))
-					));
+				float d = 0.001;
+				return normalize(vec3(
+					distanceHub(p + vec3(d, 0.0, 0.0)) - distanceHub(p + vec3( -d, 0.0, 0.0)),
+					distanceHub(p + vec3(0.0, d, 0.0)) - distanceHub(p + vec3(0.0,-d, 0.0)),
+					distanceHub(p + vec3(0.0, 0.0, d)) - distanceHub(p + vec3(0.0, 0.0,-d))
+				));
 			}
 
 			void main(){
-					// スクリーンスペースを考慮して座標を正規化する
-					vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);
-					// カメラを定義する
-					vec3 cPos = vec3(0.0,	0.0,	5.0); // カメラの位置
-					vec3 cDir = vec3(0.0,	0.0, -1.0); // カメラの向き(視線)
-					vec3 cUp	= vec3(0.0,	1.0,	0.0); // カメラの上方向
-					vec3 cSide = cross(cDir, cUp);		 // 外積を使って横方向を算出
-					float targetDepth = 1.0;					 // フォーカスする深度
-					// カメラの情報からレイを定義する
-					vec3 ray = normalize(cSide * p.x + cUp * p.y + cDir * targetDepth);
-					// マーチングループを組む
-					float dist = 0.0;	// レイとオブジェクト間の最短距離
-					float rLen = 0.0;	// レイに継ぎ足す長さ
-					vec3	rPos = cPos; // レイの先端位置(初期位置)
-					for(int i = 0; i < 32; ++i){
-							dist = distanceHub(rPos);
-							rLen += dist;
-							rPos = cPos + ray * rLen;
-					}
-					// レイとオブジェクトの距離を確認
-					if(abs(dist) < 0.001){
-							// 法線を算出
-							vec3 normal = genNormal(rPos);
-							// ライトベクトルの定義
-							vec3 light = normalize(vec3(1.0, 1.0, 1.0));
-							// ライトベクトルとの内積を取る
-							float diff = max(dot(normal, light), 0.1);
-							gl_FragColor = vec4(vec3(diff, diff, diff), 1.0);
-							// gl_FragColor = vec4(vec3(diff*240.0/255.0, diff*128.0/255.0, diff*128.0/255.0), 1.0);
-					}else{
-							// 衝突しなかった場合はそのまま黒
-							gl_FragColor = vec4(vec3(0.0, 0.0, 0.0), 1.0);
-					}
+				// スクリーンスペースを考慮して座標を正規化する
+				vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);
+				// カメラを定義する
+				vec3 cPos = vec3(0.0,  0.0,  5.0); // カメラの位置
+				vec3 cDir = vec3(0.0,  0.0, -1.0); // カメラの向き(視線)
+				vec3 cUp	= vec3(0.0,  1.0,  0.0); // カメラの上方向
+				vec3 cSide = cross(cDir, cUp);     // 外積を使って横方向を算出
+				float targetDepth = 1.0;           // フォーカスする深度
+				// カメラの情報からレイを定義する
+				vec3 ray = normalize(cSide * p.x + cUp * p.y + cDir * targetDepth);
+				// マーチングループを組む
+				float dist = 0.0;  // レイとオブジェクト間の最短距離
+				float rLen = 0.0;  // レイに継ぎ足す長さ
+				vec3  rPos = cPos; // レイの先端位置(初期位置)
+				for(int i = 0; i < 32; ++i){
+						dist = distanceHub(rPos);
+						rLen += dist;
+						rPos = cPos + ray * rLen;
+				}
+				// レイとオブジェクトの距離を確認
+				if(abs(dist) < 0.001){
+						// 法線を算出
+						vec3 normal = genNormal(rPos);
+						// ライトベクトルの定義
+						vec3 light = normalize(vec3(1.0, 1.0, 1.0));
+						// ライトベクトルとの内積を取る
+						float diff = max(dot(normal, light), 0.1);
+						gl_FragColor = vec4(vec3(diff, diff, diff), 1.0);
+						// gl_FragColor = vec4(vec3(diff*240.0/255.0, diff*128.0/255.0, diff*128.0/255.0), 1.0);
+				}else{
+						// 衝突しなかった場合はそのまま黒
+						gl_FragColor = vec4(vec3(0.0, 0.0, 0.0), 1.0);
+				}
 			}
 		</script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.js"></script>
