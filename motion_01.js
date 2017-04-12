@@ -34,55 +34,35 @@ const shaderMesh = new THREE.Mesh(shaderGeometry, shaderMaterial);
 
 shaderScene.add(shaderMesh);
 
-const geometry = new THREE.CubeGeometry(40, 25, 1);
+const geometry = new THREE.CubeGeometry(60, 25, 1);
 const material = new THREE.MeshBasicMaterial();
 const mesh     = new THREE.Mesh(geometry, material);
 scene.add(mesh);
 const clock    = new THREE.Clock();
 
+var options = {
+	size: 90,
+	height: 90,
+	weight: "normal",
+	font: "helvetiker",
+	bevelThickness: 2,
+	bevelSize: 0.5,
+	bevelSegments: 3,
+	bevelEnabled: true,
+	curveSegments: 12,
+	steps: 1
+};
 
-// 文字追加
-	var text1;
-	var controls = new function () {
-		this.size = 90;
-		this.height = 90;
-		this.bevelThickness = 2;
-		this.bevelSize = 0.5;
-		this.bevelEnabled = true;
-		this.bevelSegments = 3;
-		this.bevelEnabled = true;
-		this.curveSegments = 12;
-		this.steps = 1;
-		this.font = "helvetiker";
-		this.weight = "normal";
-//			this.style = "italics";
+console.log(options);
+const text1    = new THREE.TextGeometry('------------------------', options);
+text1.position.z = -100;
+text1.position.y = 100;
+text1.position.x = -220;
 
-		this.asGeom = function () {
-			// remove the old plane
-			scene.remove(text1);
-			// create a new one
-			var options = {
-				size: controls.size,
-				height: controls.height,
-				weight: controls.weight,
-				font: controls.font,
-				bevelThickness: controls.bevelThickness,
-				bevelSize: controls.bevelSize,
-				bevelSegments: controls.bevelSegments,
-				bevelEnabled: controls.bevelEnabled,
-				curveSegments: controls.curveSegments,
-				steps: controls.steps
-			};
-			console.log(THREE.FontUtils.faces);
-			// text1 = createMesh(new THREE.TextGeometry('sqrt(p.x*p.x+p.y*p.y+p.z*p.z + R*R - 2.0 * R * sqrt(p.x*p.x+p.y*p.y+p.z*p.z*abs(sin(time))) ) - r', options));
-			text1 = createMesh(new THREE.TextGeometry('', options));
-			// text2 = createMesh(new THREE.TextGeometry('sqrt(p.x*p.x+p.y*p.y+p.z*p.z + R*R - 2.0 * R * sqrt(p.x*p.x+p.y*p.y) ) - r', options));
-			text1.position.z = -100;
-			// text1.position.y = 100;
-			text1.position.x = -220;
-			scene.add(text1);
-		};
-	};
+console.log(text1);
+const material2 = new THREE.MeshBasicMaterial();
+const mesh2     = new THREE.Mesh(text1, material2);
+scene.add(mesh2);
 
 (function animate(){
 	requestAnimationFrame(animate);

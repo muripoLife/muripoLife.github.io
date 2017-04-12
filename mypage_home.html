@@ -2,10 +2,6 @@
 <html>
 	<head>
 		<title>muripo_lifeのぺーじ</title>
-		<script type="text/javascript" src="./three.js"></script>
-		<script type="text/javascript" src="./threeDimTextAsset/helvetiker_regular.typeface.js"></script>
-		<script type="text/javascript" src="./threeDimTextAsset/helvetiker_bold.typeface.js"></script>
-		<script type="text/javascript" src="./threeDimTextAsset/bitstream_vera_sans_mono_roman.typeface.js"></script>
 		<!-- React.js -->
 		<script src="http://fb.me/react-0.13.3.js"></script>
 		<script src="http://fb.me/JSXTransformer-0.13.3.js"></script>
@@ -29,7 +25,7 @@
 					\end{pmatrix}
 					, (0 \leq u, v \leq 2 \pi), (0 < r < R)
 			$
-			$
+<!-- 			$
 				S(u,v) =
 					\begin{pmatrix}
 					(R + r \cos u) \cos v \\
@@ -38,7 +34,7 @@
 					\end{pmatrix}
 					, (0 \leq u, v \leq 2 \pi), (0 < r < R)
 			$
-			
+ -->			
 		</scritp>
 		<!-- shader_code -->
 		<script type="x-shader/x-vertex" id="vs">
@@ -50,7 +46,7 @@
 		</script>
 		<script type="x-shader/x-fragment" id="fs">
 			precision mediump float;
-			uniform vec2	resolution;
+			uniform vec2 resolution;
 			uniform float time;
 			uniform sampler2D prevScene;
 			// Boxの距離関数
@@ -123,6 +119,11 @@
 		</script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.js"></script>
 		<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+		<!-- <script src="https://threejs.org/examples/fonts/helvetiker_regular.typeface.json"></script> -->
+		<script src="https://threejs.org/examples/js/utils/GeometryUtils.js"></script>
+		<script src="https://threejs.org/examples/js/Detector.js"></script>
+		<script src="https://threejs.org/examples/js/libs/stats.min.js"></script>
+
 		<script src="motion_01.js"></script>
 	</body>
 </html>
