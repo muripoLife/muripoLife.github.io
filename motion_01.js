@@ -31,38 +31,41 @@ const shaderMaterial  = new THREE.ShaderMaterial({
 });
 
 const shaderMesh = new THREE.Mesh(shaderGeometry, shaderMaterial);
-
+shaderMesh.position.x = -100;
 shaderScene.add(shaderMesh);
 
-const geometry = new THREE.CubeGeometry(60, 25, 1);
+const geometry = new THREE.CubeGeometry(30, 25, 1);
 const material = new THREE.MeshBasicMaterial();
 const mesh     = new THREE.Mesh(geometry, material);
+mesh.position.x = 15;
 scene.add(mesh);
 const clock    = new THREE.Clock();
 
-var options = {
-	size: 90,
-	height: 90,
-	weight: "normal",
-	font: "helvetiker",
-	bevelThickness: 2,
-	bevelSize: 0.5,
-	bevelSegments: 3,
-	bevelEnabled: true,
-	curveSegments: 12,
-	steps: 1
-};
+const light = new THREE.HemisphereLight(0xff99ad, 0xfef4f4);
+light.position.y = 1050;
 
-console.log(options);
-const text1    = new THREE.TextGeometry('------------------------', options);
-text1.position.z = -100;
-text1.position.y = 100;
-text1.position.x = -220;
-
-console.log(text1);
-const material2 = new THREE.MeshBasicMaterial();
-const mesh2     = new THREE.Mesh(text1, material2);
-scene.add(mesh2);
+scene.add(light);
+var loader = new THREE.FontLoader();
+loader.load( 'https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function ( font ) {
+	var textGeo = new THREE.TextGeometry( "THREE.JS", {
+		font: font,
+		size: 20, // font size
+		height: 10, // how much extrusion (how thick / deep are the letters)
+		curveSegments: 12,
+		bevelThickness: 1,
+		bevelSize: 1,
+		bevelEnabled: true
+	});
+	textGeo.computeBoundingBox();
+	var textMaterial = new THREE.MeshPhongMaterial( { color: 0xff00ff, specular: 0xffffff } );
+	var mesh2 = new THREE.Mesh( textGeo, textMaterial );
+	mesh2.position.x = -200;
+	mesh2.position.y = 50;
+	mesh2.position.z = -200;
+	mesh2.castShadow = true;
+	mesh2.receiveShadow = true;
+	scene.add( mesh2 );
+});
 
 (function animate(){
 	requestAnimationFrame(animate);
