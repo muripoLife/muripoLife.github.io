@@ -34,7 +34,7 @@ const shaderMesh = new THREE.Mesh(shaderGeometry, shaderMaterial);
 shaderMesh.position.x = -100;
 shaderScene.add(shaderMesh);
 
-const geometry = new THREE.CubeGeometry(30, 25, 1);
+const geometry = new THREE.PlaneGeometry(30, 25, 1);
 const material = new THREE.MeshBasicMaterial();
 const mesh     = new THREE.Mesh(geometry, material);
 mesh.position.x = 15;
@@ -49,8 +49,8 @@ var loader = new THREE.FontLoader();
 loader.load( 'https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function ( font ) {
 	var textGeo = new THREE.TextGeometry( "THREE.JS", {
 		font: font,
-		size: 20, // font size
-		height: 10, // how much extrusion (how thick / deep are the letters)
+		size: 20,
+		height: 10,
 		curveSegments: 12,
 		bevelThickness: 1,
 		bevelSize: 1,
