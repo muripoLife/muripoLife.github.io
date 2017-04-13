@@ -58,13 +58,13 @@ loader.load( 'https://threejs.org/examples/fonts/helvetiker_regular.typeface.jso
 	});
 	textGeo.computeBoundingBox();
 	var textMaterial = new THREE.MeshPhongMaterial( { color: 0xff00ff, specular: 0xffffff } );
-	var mesh2 = new THREE.Mesh( textGeo, textMaterial );
-	mesh2.position.x = -200;
-	mesh2.position.y = 50;
-	mesh2.position.z = -200;
-	mesh2.castShadow = true;
-	mesh2.receiveShadow = true;
-	scene.add( mesh2 );
+	var meshText = new THREE.Mesh( textGeo, textMaterial );
+	meshText.position.x = -200;
+	meshText.position.y = 25;
+	meshText.position.z = -200;
+	meshText.castShadow = true;
+	meshText.receiveShadow = true;
+	scene.add( meshText );
 });
 
 (function animate(){
