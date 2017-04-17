@@ -1,7 +1,7 @@
 const scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setClearColor(0xcccccc);
+renderer.setClearColor(0x000000);
 renderer.setPixelRatio(window.devicePixelRatio);
 document.body.appendChild(renderer.domElement);
 
@@ -13,6 +13,7 @@ const target        = new THREE.WebGLRenderTarget(window.innerWidth, window.inne
 const shaderScene   = new THREE.Scene();
 // 遠近効果がないカメラ
 const shaderCamera  = new THREE.OrthographicCamera(window.innerWidth / -2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / -2, -1, 1);
+
 // JSからGLSLへ変数を渡す変数
 const shaderUniforms = {
 	resolution: {
@@ -35,7 +36,7 @@ shaderMesh.position.x = -100;
 shaderScene.add(shaderMesh);
 
 const geometry = new THREE.PlaneGeometry(30, 25, 1);
-const material = new THREE.MeshBasicMaterial();
+const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
 const mesh     = new THREE.Mesh(geometry, material);
 mesh.position.x = 15;
 scene.add(mesh);
@@ -47,24 +48,62 @@ light.position.y = 1050;
 scene.add(light);
 var loader = new THREE.FontLoader();
 loader.load( 'https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function ( font ) {
-	var textGeo = new THREE.TextGeometry( "THREE.JS", {
+	var textGeo_bf = new THREE.TextGeometry( "x^2+y^2+z^2=r^2", {
 		font: font,
-		size: 20,
+		size: 30,
 		height: 10,
 		curveSegments: 12,
 		bevelThickness: 1,
 		bevelSize: 1,
 		bevelEnabled: true
 	});
-	textGeo.computeBoundingBox();
-	var textMaterial = new THREE.MeshPhongMaterial( { color: 0xff00ff, specular: 0xffffff } );
-	var meshText = new THREE.Mesh( textGeo, textMaterial );
-	meshText.position.x = -200;
-	meshText.position.y = 25;
-	meshText.position.z = -200;
-	meshText.castShadow = true;
-	meshText.receiveShadow = true;
-	scene.add( meshText );
+
+	var textGeo_arrow = new THREE.TextGeometry( "----------------------", {
+		font: font,
+		size: 50,
+		height: 10,
+		curveSegments: 12,
+		bevelThickness: 1,
+		bevelSize: 1,
+		bevelEnabled: true
+	});
+
+
+	var textGeo_af = new THREE.TextGeometry( "x^2+y^2+z^2+R^2-2R(x2+y2)^1/2=r^2", {
+		font: font,
+		size: 18,
+		height: 10,
+		curveSegments: 12,
+		bevelThickness: 1,
+		bevelSize: 1,
+		bevelEnabled: true
+	});
+
+	textGeo_bf.computeBoundingBox();
+	textGeo_af.computeBoundingBox();
+	textGeo_arrow.computeBoundingBox();
+	var textMaterial = new THREE.MeshPhongMaterial( { color: 0x00ffff, specular: 0xffffff } );
+	var meshText_bf = new THREE.Mesh( textGeo_bf, textMaterial );
+	var meshText_af = new THREE.Mesh( textGeo_af, textMaterial );
+	var meshText_arrow = new THREE.Mesh( textGeo_arrow, textMaterial );
+	meshText_bf.position.x = -400;
+	meshText_bf.position.y = 60;
+	meshText_bf.position.z = -400;
+	meshText_bf.castShadow = true;
+	meshText_bf.receiveShadow = true;
+
+	meshText_arrow.position.x = -500;
+	meshText_arrow.position.y = 0;
+	meshText_arrow.position.z = -400;
+	meshText_arrow.castShadow = true;
+	meshText_arrow.receiveShadow = true;
+
+	meshText_af.position.x = -450;
+	meshText_af.position.y = -60;
+	meshText_af.position.z = -400;
+	meshText_af.castShadow = true;
+	meshText_af.receiveShadow = true;
+	scene.add( meshText_bf, meshText_af, meshText_arrow);
 });
 
 (function animate(){

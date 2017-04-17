@@ -49,7 +49,7 @@
 			uniform vec2 resolution;
 			uniform float time;
 			uniform sampler2D prevScene;
-			// Boxの距離関数
+
 			float dTorus(vec3 p)
 			{
 				// lenght使わない方法
@@ -63,8 +63,25 @@
 				// p = m_z * p;
 				// return sqrt(p.x*p.x+p.y*p.y+p.z*p.z + R*R - 2.0 * R * sqrt(p.x*p.x+p.y*p.y) ) - r;
 				// TorusからSphereへ変形
-				return sqrt(p.x*p.x+p.y*p.y+p.z*p.z + R*R - 2.0 * R * sqrt(p.x*p.x+p.y*p.y+p.z*p.z*abs(sin(time))) ) - r;
+				return sqrt(p.x*p.x+p.y*p.y+p.z*p.z + R*R - 2.0 * R * sqrt(p.x*p.x+p.y*p.y+p.z*p.z*abs(sin(time/2.0))) ) - r;
 			}
+
+			float dEpiTorus(vec3 p)
+			{
+				// lenght使わない方法
+				float r = 0.3;
+				float R = 3.0;
+				// mat3 m_x = mat3(1,0,0,0,cos(time),-sin(time),0,sin(time),cos(time));
+				// p = m_x * p;
+				mat3 m_y = mat3(cos(time),0,-sin(time), 0,1,0, sin(time),0,cos(time));
+				p = m_y * p;
+				// mat3 m_z = mat3(cos(time),-sin(time),0, sin(time),cos(time),0, 0,0,1);
+				// p = m_z * p;
+				// return sqrt(p.x*p.x+p.y*p.y+p.z*p.z + R*R - 2.0 * R * sqrt(p.x*p.x+p.y*p.y) ) - r;
+				vec3  s = vec3(0.7, 0.7, 0.4);
+				return sqrt(p.x/s.x*p.x/s.x+p.y/s.y*p.y/s.y+p.z/s.z*p.z/s.z+R*R - 2.0 * R * sqrt(p.x/s.x*p.x/s.x+p.y/s.y*p.y/s.y+p.z/s.z*p.z/s.z*abs(cos(time/2.0))))* min(min(s.x,s.y),s.z)- r;
+			}
+			
 			// 距離関数を呼び出すハブ関数
 			float distanceHub(vec3 p)
 			{
