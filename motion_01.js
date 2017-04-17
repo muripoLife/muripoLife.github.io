@@ -72,8 +72,8 @@ loader.load( 'https://threejs.org/examples/fonts/helvetiker_regular.typeface.jso
 	var textGeo_af = new THREE.TextGeometry( "x^2+y^2+z^2+R^2-2R(x2+y2)^1/2=r^2", {
 		font: font,
 		size: 18,
-		height: 10,
-		curveSegments: 12,
+		height: 5,
+		curveSegments: 2,
 		bevelThickness: 1,
 		bevelSize: 1,
 		bevelEnabled: true

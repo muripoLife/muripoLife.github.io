@@ -52,6 +52,7 @@
 
 			float dTorus(vec3 p)
 			{
+				p += vec3(cos(time), -0.5+sin(time), 0.0);
 				// lenght使わない方法
 				float r = 0.6;
 				float R = 2.0;
@@ -81,7 +82,7 @@
 				vec3  s = vec3(0.7, 0.7, 0.4);
 				return sqrt(p.x/s.x*p.x/s.x+p.y/s.y*p.y/s.y+p.z/s.z*p.z/s.z+R*R - 2.0 * R * sqrt(p.x/s.x*p.x/s.x+p.y/s.y*p.y/s.y+p.z/s.z*p.z/s.z*abs(cos(time/2.0))))* min(min(s.x,s.y),s.z)- r;
 			}
-			
+
 			// 距離関数を呼び出すハブ関数
 			float distanceHub(vec3 p)
 			{
