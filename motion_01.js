@@ -63,9 +63,9 @@
 			textGeo_bf.computeBoundingBox();
 			var textMaterial = new THREE.MeshPhongMaterial( { color: 0x00ffff, specular: 0xffffff } );
 			var meshText_bf = new THREE.Mesh( textGeo_bf, textMaterial );
-			meshText_bf.position.x = -400;
-			meshText_bf.position.y = 60;
-			meshText_bf.position.z = -400;
+			// meshText_bf.position.x = 0;
+			// meshText_bf.position.y = 0;
+			// meshText_bf.position.z = 0;
 			meshText_bf.castShadow = true;
 			meshText_bf.receiveShadow = true;
 			return meshText_bf;
@@ -73,8 +73,10 @@
 
 		const font = await loadFont('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json');
 		const textMesh = geoText(font);
+		textMesh.scale.set(0.05, 0.05, 0.05);
+		textMesh.position.set(-20, 0, 0);
 
-		console.log(textMesh);
+		// console.log(textMesh);
 
 		scene.add(textMesh);
 
@@ -86,8 +88,8 @@
 			material.map = target.texture;
 			time                      = clock.getElapsedTime();
 			shaderUniforms.time.value = clock.getElapsedTime();
-			textMesh.position.y = 60*Math.sin(time);
-			
+			textMesh.position.y = 10*Math.sin(time);
+
 			renderer.render(scene, camera);
 		}
 
