@@ -34,7 +34,7 @@
 		shaderMesh.position.x = -100;
 		shaderScene.add(shaderMesh);
 
-		const geometry = new THREE.PlaneGeometry(30, 25, 1);
+		const geometry = new THREE.PlaneGeometry(window.innerWidth/15, window.innerHeight/15, 1);
 		const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
 		const mesh     = new THREE.Mesh(geometry, material);
 		mesh.position.x = 15;
@@ -74,7 +74,7 @@
 		const font = await loadFont('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json');
 		const textMesh = geoText(font);
 		textMesh.scale.set(0.05, 0.05, 0.05);
-		textMesh.position.set(-20, 0, 0);
+		textMesh.position.set(-25, 0, 0);
 
 		// console.log(textMesh);
 
