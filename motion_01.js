@@ -50,9 +50,9 @@
 		var loader = new THREE.FontLoader();
 
 		var geoText = function ( font ) {
-			var textGeo_bf = new THREE.TextGeometry( "x^2+y^2+z^2=r^2", {
+			var textGeo_bf = new THREE.TextGeometry( "Torus_Shpere", {
 				font: font,
-				size: 30,
+				size: 50,
 				height: 10,
 				curveSegments: 12,
 				bevelThickness: 1,
@@ -61,7 +61,7 @@
 			});
 
 			textGeo_bf.computeBoundingBox();
-			var textMaterial = new THREE.MeshPhongMaterial( { color: 0x00ffff, specular: 0xffffff } );
+			var textMaterial = new THREE.MeshPhongMaterial( { color: 0xff00ff, specular: 0xffffff } );
 			var meshText_bf = new THREE.Mesh( textGeo_bf, textMaterial );
 			// meshText_bf.position.x = 0;
 			// meshText_bf.position.y = 0;
