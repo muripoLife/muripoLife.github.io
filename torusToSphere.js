@@ -50,7 +50,7 @@
 		var loader = new THREE.FontLoader();
 
 		var geoText = function ( font ) {
-			var textGeo_bf = new THREE.TextGeometry( "Torus_Shpere", {
+			var textGeo_bf = new THREE.TextGeometry( "Torus Shpere", {
 				font: font,
 				size: 50,
 				height: 10,
@@ -88,7 +88,9 @@
 			material.map = target.texture;
 			time                      = clock.getElapsedTime();
 			shaderUniforms.time.value = clock.getElapsedTime();
-			textMesh.position.y = 10*Math.sin(time);
+			// textMesh.position.y = 10*Math.sin(time);
+			textMesh.position.y = 10;
+
 
 			renderer.render(scene, camera);
 		}
