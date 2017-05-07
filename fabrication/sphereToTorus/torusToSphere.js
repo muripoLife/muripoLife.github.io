@@ -47,38 +47,38 @@
 		let count = 0;
 
 		scene.add(light);
-		var loader = new THREE.FontLoader();
+		// var loader = new THREE.FontLoader();
 
-		var geoText = function ( font ) {
-			var textGeo_bf = new THREE.TextGeometry( "Torus Shpere", {
-				font: font,
-				size: 50,
-				height: 10,
-				curveSegments: 12,
-				bevelThickness: 1,
-				bevelSize: 1,
-				bevelEnabled: true
-			});
+		// var geoText = function ( font ) {
+		// 	var textGeo_bf = new THREE.TextGeometry( "Torus Shpere", {
+		// 		font: font,
+		// 		size: 50,
+		// 		height: 10,
+		// 		curveSegments: 12,
+		// 		bevelThickness: 1,
+		// 		bevelSize: 1,
+		// 		bevelEnabled: true
+		// 	});
 
-			textGeo_bf.computeBoundingBox();
-			var textMaterial = new THREE.MeshPhongMaterial( { color: 0xff00ff, specular: 0xffffff } );
-			var meshText_bf = new THREE.Mesh( textGeo_bf, textMaterial );
-			// meshText_bf.position.x = 0;
-			// meshText_bf.position.y = 0;
-			// meshText_bf.position.z = 0;
-			meshText_bf.castShadow = true;
-			meshText_bf.receiveShadow = true;
-			return meshText_bf;
-		};
+		// 	textGeo_bf.computeBoundingBox();
+		// 	var textMaterial = new THREE.MeshPhongMaterial( { color: 0xff00ff, specular: 0xffffff } );
+		// 	var meshText_bf = new THREE.Mesh( textGeo_bf, textMaterial );
+		// 	// meshText_bf.position.x = 0;
+		// 	// meshText_bf.position.y = 0;
+		// 	// meshText_bf.position.z = 0;
+		// 	meshText_bf.castShadow = true;
+		// 	meshText_bf.receiveShadow = true;
+		// 	return meshText_bf;
+		// };
 
-		const font = await loadFont('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json');
-		const textMesh = geoText(font);
-		textMesh.scale.set(0.05, 0.05, 0.05);
-		textMesh.position.set(-25, 0, 0);
+		// const font = await loadFont('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json');
+		// const textMesh = geoText(font);
+		// textMesh.scale.set(0.05, 0.05, 0.05);
+		// textMesh.position.set(-25, 0, 0);
 
-		// console.log(textMesh);
+		// // console.log(textMesh);
 
-		scene.add(textMesh);
+		// scene.add(textMesh);
 
 		animate();
 
@@ -89,7 +89,7 @@
 			time                      = clock.getElapsedTime();
 			shaderUniforms.time.value = clock.getElapsedTime();
 			// textMesh.position.y = 10*Math.sin(time);
-			textMesh.position.y = 10;
+			// textMesh.position.y = 10;
 
 
 			renderer.render(scene, camera);
